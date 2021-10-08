@@ -3,6 +3,8 @@ const app = express()
 const Places = require('./models/places')
 const guias = require('./models/guias')
 const  cars = require('./models/cars')
+const bares = require('./models/bares')
+const hoteles = require('./models/hoteles')
 const cors = require('cors');
 const http = require('http');
 const server = http.Server(app);
@@ -66,7 +68,7 @@ app.get('/cars/:id', async function(req,res){
   }).catch(function(erro){
       return res.status(400).json({
           erro: true,
-          message:"lugar no encontrado"
+          message:"carro no encontrado"
       })
   })
 })
@@ -121,10 +123,101 @@ app.post('/cadastrarcars', async (req,res) =>{
   }).catch(function(erro){
       return res.status(400).json({
           error:true,
-          message:"guia nao cadatrado con sucesso"
+          message:"carro nao cadatrado con sucesso"
       })
   })
 });
+
+
+app.get('/bares', async function(req,res){
+    await bares.findAll({order: [['id', 'Desc']]}).then(function(bares){
+        res.json({bares})
+    })
+});
+
+app.get('/bares/:id', async function(req,res){
+    await  bares.findByPk(req.params.id)
+    .then(bares=>{
+        return res.json({
+            error: false,
+            bares
+        })
+  
+    }).catch(function(erro){
+        return res.status(400).json({
+            erro: true,
+            message:"bar no encontrado"
+        })
+    })
+  })
+
+
+
+
+
+
+app.post('/cadastrarbar', async (req,res) =>{
+    const resultCad= await bares.create(
+      req.body
+    ).then(function(){
+        return res.json({
+            error:false,
+            message:"cadastrado con sucesso"
+        })
+    }).catch(function(erro){
+        return res.status(400).json({
+            error:true,
+            message:"bar  nao cadatrado con sucesso"
+        })
+    })
+  });
+
+
+
+  app.get('/hoteles', async function(req,res){
+    await hoteles.findAll({order: [['id', 'Desc']]}).then(function(hoteles){
+        res.json({hoteles})
+    })
+});
+
+app.get('/hoteles/:id', async function(req,res){
+    await  hoteles.findByPk(req.params.id)
+    .then(hoteles=>{
+        return res.json({
+            error: false,
+            hoteles
+        })
+  
+    }).catch(function(erro){
+        return res.status(400).json({
+            erro: true,
+            message:"hotel no encontrado"
+        })
+    })
+  })
+
+
+
+
+
+
+app.post('/cadastrarhoteles', async (req,res) =>{
+    const resultCad= await hoteles.create(
+      req.body
+    ).then(function(){
+        return res.json({
+            error:false,
+            message:"cadastrado con sucesso"
+        })
+    }).catch(function(erro){
+        return res.status(400).json({
+            error:true,
+            message:"hotel nao cadatrado con sucesso"
+        })
+    })
+  });
+
+
 
 
 
