@@ -5,6 +5,9 @@ const guias = require('./models/guias')
 const  cars = require('./models/cars')
 const bares = require('./models/bares')
 const hoteles = require('./models/hoteles')
+const tours = require('./models/packagetours')
+const reservaciones= require('./models/reservaciones')
+const xgames = require('./models/Xgames')
 const cors = require('cors');
 const http = require('http');
 const server = http.Server(app);
@@ -218,6 +221,193 @@ app.post('/cadastrarhoteles', async (req,res) =>{
   });
 
 
+
+  app.get('/tours', async function(req,res){
+    await tours.findAll({order: [['id', 'Desc']]}).then(function(tours){
+        res.json({tours})
+    })
+});
+
+app.get('/tours/:id', async function(req,res){
+    await  tours.findByPk(req.params.id)
+    .then(tours=>{
+        return res.json({
+            error: false,
+            tours
+        })
+  
+    }).catch(function(erro){
+        return res.status(400).json({
+            erro: true,
+            message:"tours no encontrado"
+        })
+    })
+  })
+
+
+
+
+
+
+app.post('/cadastrartours', async (req,res) =>{
+    const resultCad= await tours.create(
+      req.body
+    ).then(function(){
+        return res.json({
+            error:false,
+            message:"cadastrado con sucesso"
+        })
+    }).catch(function(erro){
+        return res.status(400).json({
+            error:true,
+            message:"tours nao cadatrado con sucesso"
+        })
+    })
+  });
+
+
+
+
+
+
+  app.get('/tours', async function(req,res){
+    await tours.findAll({order: [['id', 'Desc']]}).then(function(tours){
+        res.json({tours})
+    })
+});
+
+app.get('/tours/:id', async function(req,res){
+    await  tours.findByPk(req.params.id)
+    .then(tours=>{
+        return res.json({
+            error: false,
+            tours
+        })
+  
+    }).catch(function(erro){
+        return res.status(400).json({
+            erro: true,
+            message:"tours no encontrado"
+        })
+    })
+  })
+
+
+
+
+
+
+app.post('/cadastrartours', async (req,res) =>{
+    const resultCad= await tours.create(
+      req.body
+    ).then(function(){
+        return res.json({
+            error:false,
+            message:"cadastrado con sucesso"
+        })
+    }).catch(function(erro){
+        return res.status(400).json({
+            error:true,
+            message:"tours nao cadatrado con sucesso"
+        })
+    })
+  });
+
+
+
+
+
+  
+
+  app.get('/reservaciones', async function(req,res){
+    await reservaciones.findAll({order: [['id', 'Desc']]}).then(function(reservaciones){
+        res.json({reservaciones})
+    })
+});
+
+app.get('/reservaciones/:id', async function(req,res){
+    await  reservaciones.findByPk(req.params.id)
+    .then(reservaciones=>{
+        return res.json({
+            error: false,
+            reservaciones
+        })
+  
+
+    }).catch(function(erro){
+        return res.status(400).json({
+            erro: true,
+            message:"reservacion no encontrado"
+        })
+    })
+  })
+
+
+
+
+
+
+app.post('/cadastrarreservaciones', async (req,res) =>{
+    const resultCad= await reservaciones.create(
+      req.body
+    ).then(function(){
+        return res.json({
+            error:false,
+            message:"cadastrado con sucesso"
+        })
+    }).catch(function(erro){
+        return res.status(400).json({
+            error:true,
+            message:"reservaciones nao cadatrado con sucesso"
+        })
+    })
+  });
+
+
+
+
+  app.get('/xgames', async function(req,res){
+    await xgames.findAll({order: [['id', 'Desc']]}).then(function(xgames){
+        res.json({xgames})
+    })
+});
+
+app.get('/xgames/:id', async function(req,res){
+    await  xgames.findByPk(req.params.id)
+    .then(xgames=>{
+        return res.json({
+            error: false,
+            xgames
+        })
+  
+    }).catch(function(erro){
+        return res.status(400).json({
+            erro: true,
+            message:"xgames no encontrado"
+        })
+    })
+  })
+
+
+
+
+
+
+app.post('/cadastrarxgames', async (req,res) =>{
+    const resultCad= await xgames.create(
+      req.body
+    ).then(function(){
+        return res.json({
+            error:false,
+            message:"cadastrado con sucesso"
+        })
+    }).catch(function(erro){
+        return res.status(400).json({
+            error:true,
+            message:"xgames nao cadatrado con sucesso"
+        })
+    })
+  });
 
 
 
